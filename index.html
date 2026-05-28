@@ -2,28 +2,49 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Loading...</title>
+  <title>elTheodoro Edit</title>
 
   <style>
     html, body {
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: black;
       width: 100%;
       height: 100%;
+      background: black;
+      font-family: Arial, sans-serif;
     }
 
-    #loading {
-      position: absolute;
+    #startscreen {
+      position: fixed;
       inset: 0;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: white;
-      font-size: 42px;
-      font-family: Arial, sans-serif;
       background: black;
+      color: white;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-bottom: 40px;
+    }
+
+    button {
+      padding: 20px 50px;
+      font-size: 30px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: red;
+      color: white;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
     }
 
     #jumpscare {
@@ -32,8 +53,8 @@
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
       background: black;
+      z-index: 9999;
     }
 
     #jumpscare img {
@@ -54,8 +75,9 @@
 </head>
 <body>
 
-<div id="loading">
-  Website lädt...
+<div id="startscreen">
+  <h1>elTheodoro Edit starten</h1>
+  <button onclick="startScare()">START</button>
 </div>
 
 <div id="jumpscare">
@@ -67,28 +89,20 @@
 </video>
 
 <script>
-window.onload = () => {
+function startScare() {
 
-  setTimeout(() => {
+  document.getElementById("startscreen").style.display = "none";
 
-    document.getElementById("loading").style.display = "none";
+  const scare = document.getElementById("jumpscare");
+  const sound = document.getElementById("sound");
 
-    const scare = document.getElementById("jumpscare");
-    const sound = document.getElementById("sound");
+  scare.style.display = "flex";
 
-    scare.style.display = "flex";
+  sound.volume = 1.0;
+  sound.play();
 
-    sound.volume = 1.0;
-
-    sound.play().catch(() => {
-      console.log("Autoplay blockiert");
-    });
-
-    document.documentElement.requestFullscreen?.();
-
-  }, 1000); // 1 Sekunde
-
-};
+  document.documentElement.requestFullscreen?.();
+}
 </script>
 
 </body>
